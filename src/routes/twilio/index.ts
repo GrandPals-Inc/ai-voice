@@ -93,7 +93,7 @@ const twilio: FastifyPluginAsync = async (fastify: FastifyInstance) => {
                     content: [
                         {
                             type: 'input_text',
-                            text: 'Greet the user with "Hello there! I am an AI voice assistant calling from GrandPals. Would you mind if I take a few minutes and ask you some questions about your interest in becoming a GrandPal?'
+                            text: `Greet the user with "Hello there! I am the GrandPals virtual assistant calling for ${firstName}."  Wait for the user to confirm their name is ${firstName} and after they confirm, ask them "Would you mind if I take a few minutes and ask you some questions about your interest in becoming a GrandPal?"`
                         }
                     ]
                 }
