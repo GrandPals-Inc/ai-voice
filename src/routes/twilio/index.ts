@@ -1,7 +1,6 @@
 import { FastifyInstance, FastifyPluginAsync } from 'fastify';
 import WebSocket from 'ws';
 import dotenv from 'dotenv';
-// import twilio from 'twilio'
 
 // Load environment variables from .env file
 dotenv.config();
