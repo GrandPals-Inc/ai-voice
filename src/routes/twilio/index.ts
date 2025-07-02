@@ -19,7 +19,6 @@ const VOICE = 'alloy';
 
 const baseURL = 'https://cow-frank-freely.ngrok.app'
 
-
 // Show AI response elapsed timing calculations
 const SHOW_TIMING_MATH = false;
 
