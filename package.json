@@ -23,6 +23,7 @@
     "ws": "^8.18.3"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.0.6",
     "@types/node": "^22.7.2",
     "@types/ws": "^8.18.1",
     "fastify-tsconfig": "^2.0.0",
