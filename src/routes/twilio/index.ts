@@ -1,13 +1,13 @@
 import { FastifyInstance, FastifyPluginAsync } from 'fastify';
-
 import WebSocket from 'ws';
 import dotenv from 'dotenv';
+import twilio from 'twilio'
 
 // Load environment variables from .env file
 dotenv.config();
 
 // Retrieve the OpenAI API key from environment variables.
-const { OPENAI_API_KEY } = process.env;
+const { OPENAI_API_KEY, TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN } = process.env;
 
 const SYSTEM_MESSAGE = `You are a helpful and bubbly virtual assistant who interviews seniors (older adults) who are interested in the GrandPals program. 
 These seniors are hoping to become mentors in a program that would place them with elementary age students in a classroom setting.
@@ -39,7 +39,7 @@ const LOG_EVENT_TYPES = [
 
 const twilio: FastifyPluginAsync = async (fastify: FastifyInstance) => {
   fastify.get('/media-stream', { websocket: true }, (connection, req) => {
-        
+    
     console.log('Client connected');
     
     // Connection-specific state
@@ -228,6 +228,12 @@ const twilio: FastifyPluginAsync = async (fastify: FastifyInstance) => {
                     firstName = data.start.customParameters.firstName;
                     lastName = data.start.customParameters.lastName;
                     console.log('Incoming stream has started', streamSid, userId, firstName,lastName);
+            
+            
+                    if (streamSid !== TWILIO_ACCOUNT_SID) {
+                      connection.close(1000,'UNAUTHORIZED')
+                    }
+
                     fetch(`${baseURL}/twilio/interview`,{
                         method:'POST',
                         body: JSON.stringify({
