@@ -6,7 +6,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // Retrieve the OpenAI API key from environment variables.
-const { OPENAI_API_KEY, TWILIO_ACCOUNT_SID, } = process.env;
+const { OPENAI_API_KEY, TWILIO_ACCOUNT_SID } = process.env;
 
 const SYSTEM_MESSAGE = `You are a helpful and bubbly virtual assistant who interviews seniors (older adults) who are interested in the GrandPals program. 
 These seniors are hoping to become mentors in a program that would place them with elementary age students in a classroom setting.
@@ -229,7 +229,7 @@ const twilio: FastifyPluginAsync = async (fastify: FastifyInstance) => {
                         console.log('Incoming stream has started', streamSid, userId, firstName, lastName);
 
 
-                        if (streamSid !== TWILIO_ACCOUNT_SID) {
+                        if (!streamSid) {
                             connection.close(1000, 'UNAUTHORIZED')
                         }
 
