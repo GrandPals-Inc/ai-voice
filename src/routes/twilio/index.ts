@@ -12,7 +12,6 @@ const SYSTEM_MESSAGE = "You are a helpful and bubbly virtual assistant who inter
     + "These seniors are hoping to become mentors in a program that would place them with elementary age students in a classroom setting. "
     + "You are trying to get a sense of if they are the right fit for that environment, based on their background, comfortability with children, and mental state. "
     + "Always stay positive, and try to keep it light."
-    + "If it is an answering machine that answers and not a real person just hang up.";
 // const SYSTEM_MESSAGE = `
 // # Personality and tone
 // You are a helpful and bubbly virtual assistant who interviews seniors (older adults) who are interested in the GrandPals program. 
@@ -121,7 +120,10 @@ const twilio: FastifyPluginAsync = async (fastify: FastifyInstance) => {
                     content: [
                         {
                             type: 'input_text',
-                            text: `Greet the user with "Hello there! I am the GrandPals virtual assistant calling for ${firstName}."  Wait for the user to confirm their name is ${firstName} and after they confirm, ask them "Would you mind if I take a few minutes and ask you some questions about your interest in becoming a GrandPal?"`
+                            text: `Greet the user with "Hello there! I am the GrandPals virtual assistant calling for ${firstName}."
+                            Wait for the user to confirm their name is ${firstName}. 
+                            After they confirm, ask them "Would you mind if I take a few minutes and ask you some questions about your interest in becoming a GrandPal?"
+                            `
                         }
                     ]
                 }
@@ -300,6 +302,7 @@ const twilio: FastifyPluginAsync = async (fastify: FastifyInstance) => {
                 method: 'POST',
                 body: JSON.stringify({
                     userId,
+                    callSid: streamSid,
                     _action: 'CALL_COMPLETE',
                     transcription
                 })
