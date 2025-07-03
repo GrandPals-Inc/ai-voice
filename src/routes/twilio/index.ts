@@ -256,7 +256,7 @@ const twilio: FastifyPluginAsync = async (fastify: FastifyInstance) => {
                             connection.close(1000, 'UNAUTHORIZED')
                         }
 
-                        fetch(`${baseURL}/twilio/interview`, {
+                        fetch(`${baseURL}/api/twilio/interview`, {
                             method: 'POST',
                             body: JSON.stringify({
                                 userId,
@@ -291,7 +291,7 @@ const twilio: FastifyPluginAsync = async (fastify: FastifyInstance) => {
         openAiWs.on('close', () => {
             console.log('Disconnected from the OpenAI Realtime API');
             console.log(transcription)
-            fetch(`${baseURL}/twilio/interview`, {
+            fetch(`${baseURL}/api/twilio/interview`, {
                 method: 'POST',
                 body: JSON.stringify({
                     userId,
