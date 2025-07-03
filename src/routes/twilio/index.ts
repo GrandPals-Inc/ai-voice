@@ -304,7 +304,7 @@ const twilio: FastifyPluginAsync = async (fastify: FastifyInstance) => {
                 method: 'POST',
                 body: JSON.stringify({
                     userId,
-                    callSid: streamSid,
+                    callSid: callSid,
                     _action: 'CALL_COMPLETE',
                     transcription
                 })
