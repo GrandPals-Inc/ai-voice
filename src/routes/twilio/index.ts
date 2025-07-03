@@ -69,6 +69,7 @@ const twilio: FastifyPluginAsync = async (fastify: FastifyInstance) => {
         console.log('Client connected');
 
         // Connection-specific state
+        let callSid: null | string = null;
         let streamSid: null | string = null;
         let userId: null | string = null;
         let firstName: null | string = null;
@@ -252,6 +253,7 @@ const twilio: FastifyPluginAsync = async (fastify: FastifyInstance) => {
                         }
                         break;
                     case 'start':
+                        callSid = data.start.callSid
                         streamSid = data.start.streamSid;
                         userId = data.start.customParameters.userId;
                         firstName = data.start.customParameters.firstName;
