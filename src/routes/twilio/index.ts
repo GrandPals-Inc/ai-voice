@@ -37,7 +37,7 @@ Close the call warmly. Thank them, and reassure them about next steps.
 Here is the script you must follow word-for-word unless clarification or a natural variation is needed:
 
 INTRO – Brief and Friendly
-"Hi there! This is the GrandPals Welcome Call.
+ "Hi there! This is the GrandPals Welcome Call for {{name}}.
 I'm your virtual assistant. I'll ask you a few short questions to make sure the program and time commitment is a good fit for you, and to learn a bit about you so we can draft a short bio.
 This should only take about five minutes. Ready to begin?"
 
@@ -88,12 +88,6 @@ CLOSING - Short and Warm
 "Thanks so much!
 I'll pass this along so we can create your draft bio and start matching you with a school.
 Welcome to GrandPals—we're excited to have you!"
-
-Listen carefully and transcribe answers accurately.
-
-Summarize Questions 2-4 into a warm, short paragraph for a draft bio.
-
-Flag any concerns or unclear answers for human review.
 
 Always prioritize clarity, empathy, and warmth.`
 
@@ -154,7 +148,7 @@ const twilio: FastifyPluginAsync = async (fastify: FastifyInstance) => {
                     },
                     output_audio_format: 'g711_ulaw',
                     voice: VOICE,
-                    instructions: SYSTEM_MESSAGE,
+                    instructions: SYSTEM_MESSAGE.replace('{{name}}', String(firstName)),
                     modalities: ["text", "audio"],
                     temperature: 0.8,
                 }
@@ -177,7 +171,7 @@ const twilio: FastifyPluginAsync = async (fastify: FastifyInstance) => {
                     content: [
                         {
                             type: 'input_text',
-                            text: "Greet the user and start the interview process as defined."
+                            text: `Greet the user and start the interview process as defined.`
 
                             // text: `Greet the user with "Hello there! I am the GrandPals virtual assistant calling for ${firstName}."
                             // Wait for the user to confirm their name is ${firstName}. 
