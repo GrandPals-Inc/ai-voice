@@ -93,7 +93,7 @@ Always prioritize clarity, empathy, and warmth.`
 
 const VOICE = 'alloy';
 
-const baseURL = 'https://cow-frank-freely.ngrok.app'
+const baseURL = process.env.NODE_ENV === 'development' ? 'https://cow-frank-freely.ngrok.app' : 'https://grandpals.app'
 
 // Show AI response elapsed timing calculations
 const SHOW_TIMING_MATH = false;
@@ -114,6 +114,7 @@ const LOG_EVENT_TYPES = [
 
 
 const twilio: FastifyPluginAsync = async (fastify: FastifyInstance) => {
+
     fastify.get('/media-stream', { websocket: true }, (connection, req) => {
 
         console.log('Client connected');
