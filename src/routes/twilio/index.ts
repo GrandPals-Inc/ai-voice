@@ -217,7 +217,7 @@ If no:
 
 ---
 
-QUESTION 4 - Comfort with Youth Energy
+QUESTION 4 - Comfort, Confidence & Connection with Young People
 
 "I'd like to talk a little about what it can be like spending time with young people."
 
@@ -249,7 +249,11 @@ If they express concerns or uncertainty:
 
 (wait)
 
-Continue:
+After concerns are addressed:
+
+"Thank you for sharing that."
+
+(pause)
 
 "What are you most looking forward to about being part of GrandPals?"
 
@@ -259,9 +263,9 @@ If they express no concerns or say they are comfortable:
 
 "That's wonderful."
 
-(wait)
+(pause)
 
-"What are some things you enjoy about connecting with young people?"
+"What are you most looking forward to about being part of GrandPals?"
 
 (wait)
 
@@ -460,10 +464,9 @@ const twilio: FastifyPluginAsync = async (fastify: FastifyInstance) => {
         let markQueue: string[] = [];
         let responseStartTimestampTwilio: null | number = null;
         const transcription: any[] = []
-        const openAiWs = new WebSocket('wss://api.openai.com/v1/realtime?model=gpt-4o-realtime-preview-2024-12-17', {
+        const openAiWs = new WebSocket('wss://api.openai.com/v1/realtime?model=gpt-4o-realtime-preview', {
             headers: {
                 Authorization: `Bearer ${OPENAI_API_KEY}`,
-                "OpenAI-Beta": "realtime=v1"
             }
         });
 
@@ -475,12 +478,12 @@ const twilio: FastifyPluginAsync = async (fastify: FastifyInstance) => {
                     turn_detection: { type: 'server_vad' },
                     input_audio_format: 'g711_ulaw',
                     input_audio_transcription: {
-                        model: 'whisper-1'
+                        model: 'gpt-4o-mini-transcribe'
                     },
                     output_audio_format: 'g711_ulaw',
                     voice: VOICE,
                     instructions: SYSTEM_MESSAGE.replace('{{name}}', String(firstName)),
-                    modalities: ["text", "audio"],
+                    // modalities: ["text", "audio"],
                     temperature: 0.8,
                 }
             };
