@@ -476,15 +476,18 @@ const twilio: FastifyPluginAsync = async (fastify: FastifyInstance) => {
             const sessionUpdate = {
                 type: 'session.update',
                 session: {
+                    type: 'realtime',
                     turn_detection: { type: 'server_vad' },
                     input_audio_format: 'g711_ulaw',
                     input_audio_transcription: {
-                        model: 'whisper-1'
+                        // model: 'whisper-1'
+                        model: 'gpt-4o-mini-transcribe'
                     },
                     output_audio_format: 'g711_ulaw',
                     voice: VOICE,
                     instructions: SYSTEM_MESSAGE.replace('{{name}}', String(firstName)),
-                    modalities: ["text", "audio"],
+                    // modalities: ["text", "audio"],
+                    output_modalities: ['audio'],
                     temperature: 0.8,
                 }
             };
