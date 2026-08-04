@@ -464,7 +464,7 @@ const twilio: FastifyPluginAsync = async (fastify: FastifyInstance) => {
         let markQueue: string[] = [];
         let responseStartTimestampTwilio: null | number = null;
         const transcription: any[] = []
-        const openAiWs = new WebSocket('wss://api.openai.com/v1/realtime?model=gpt-realtime-2025-08-28', {
+        const openAiWs = new WebSocket('wss://api.openai.com/v1/realtime?model=gpt-4o-realtime-preview-2024-12-17', {
             headers: {
                 Authorization: `Bearer ${OPENAI_API_KEY}`,
                 "OpenAI-Beta": "realtime=v1"
@@ -479,12 +479,12 @@ const twilio: FastifyPluginAsync = async (fastify: FastifyInstance) => {
                     turn_detection: { type: 'server_vad' },
                     input_audio_format: 'g711_ulaw',
                     input_audio_transcription: {
-                        model: 'gpt-4o-mini-transcribe'
+                        model: 'whisper-1'
                     },
                     output_audio_format: 'g711_ulaw',
                     voice: VOICE,
                     instructions: SYSTEM_MESSAGE.replace('{{name}}', String(firstName)),
-                    // modalities: ["text", "audio"],
+                    modalities: ["text", "audio"],
                     temperature: 0.8,
                 }
             };
