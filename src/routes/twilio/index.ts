@@ -464,7 +464,7 @@ const twilio: FastifyPluginAsync = async (fastify: FastifyInstance) => {
         let markQueue: string[] = [];
         let responseStartTimestampTwilio: null | number = null;
         const transcription: any[] = []
-        const openAiWs = new WebSocket('wss://api.openai.com/v1/realtime?model=gpt-realtime', {
+        const openAiWs = new WebSocket('wss://api.openai.com/v1/realtime?model=gpt-realtime-2025-08-28', {
             headers: {
                 Authorization: `Bearer ${OPENAI_API_KEY}`,
                 "OpenAI-Beta": "realtime=v1"
