@@ -480,7 +480,7 @@ const twilio: FastifyPluginAsync = async (fastify: FastifyInstance) => {
                     audio: {
                         input: {
                             format: {
-                                type: 'g711_ulaw'
+                                type: 'audio/pcmu'
                             },
                             turn_detection: {
                                 type: 'server_vad',
@@ -494,7 +494,7 @@ const twilio: FastifyPluginAsync = async (fastify: FastifyInstance) => {
                         },
                         output: {
                             format: {
-                                type: 'g711_ulaw'
+                                type: 'audio/pcmu'
                             },
                             voice: VOICE
                         }
