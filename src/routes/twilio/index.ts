@@ -519,7 +519,7 @@ const twilio: FastifyPluginAsync = async (fastify: FastifyInstance) => {
             openAiWs.send(JSON.stringify(sessionUpdate));
 
             // Uncomment the following line to have AI speak first:
-            sendInitialConversationItem();
+            // sendInitialConversationItem();
         };
 
         // Send initial conversation item if AI talks first
@@ -605,7 +605,12 @@ const twilio: FastifyPluginAsync = async (fastify: FastifyInstance) => {
                     console.log(`Received event: ${response.type}`, JSON.stringify(response, null, 2));
                 }
 
-                if (response.type === 'response.audio.delta' && response.delta) {
+                if (response.type === 'session.updated') {
+                    console.log('Session updated, starting conversation')
+                    sendInitialConversationItem()
+                }
+
+                if (response.type === 'response.output_audio.delta' && response.delta) {
                     const audioDelta = {
                         event: 'media',
                         streamSid: streamSid,
