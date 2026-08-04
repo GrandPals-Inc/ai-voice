@@ -427,7 +427,7 @@ const SYSTEM_MESSAGE = PROMPT_VERSION && promptVersions[PROMPT_VERSION] || promp
 
 const VOICE = 'alloy';
 
-const baseURL = process.env.NODE_ENV === 'development' ? 'https://cow-frank-freely.ngrok.io' : 'https://grandpals.app'
+const baseURL = process.env.NODE_ENV === 'development' ? 'https://grandpals.app' : 'https://grandpals.app'
 
 // Show AI response elapsed timing calculations
 const SHOW_TIMING_MATH = false;
@@ -477,14 +477,34 @@ const twilio: FastifyPluginAsync = async (fastify: FastifyInstance) => {
                 type: 'session.update',
                 session: {
                     type: 'realtime',
-                    turn_detection: { type: 'server_vad' },
-                    input_audio_format: 'g711_ulaw',
-                    input_audio_transcription: {
-                        // model: 'whisper-1'
-                        model: 'gpt-4o-mini-transcribe'
+                    audio: {
+                        input: {
+                            format: {
+                                type: 'g711_ulaw'
+                            },
+                            turn_detection: {
+                                type: 'server_vad'
+                            },
+                            transcription: {
+                                model: 'gpt-4o-mini-transcribe'
+                            }
+                        },
+                        output: {
+                            format: {
+                                type: 'g711_ulaw'
+                            },
+                            voice: VOICE
+                        }
                     },
-                    output_audio_format: 'g711_ulaw',
-                    voice: VOICE,
+
+                    // turn_detection: { type: 'server_vad' },
+                    // input_audio_format: 'g711_ulaw',
+                    // input_audio_transcription: {
+                    //     // model: 'whisper-1'
+                    //     model: 'gpt-4o-mini-transcribe'
+                    // },
+                    // output_audio_format: 'g711_ulaw',
+                    // voice: VOICE,
                     instructions: SYSTEM_MESSAGE.replace('{{name}}', String(firstName)),
                     // modalities: ["text", "audio"],
                     output_modalities: ['audio'],
