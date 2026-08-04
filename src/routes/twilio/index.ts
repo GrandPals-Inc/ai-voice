@@ -483,7 +483,10 @@ const twilio: FastifyPluginAsync = async (fastify: FastifyInstance) => {
                                 type: 'g711_ulaw'
                             },
                             turn_detection: {
-                                type: 'server_vad'
+                                type: 'server_vad',
+                                threshold: 0.5,
+                                prefix_padding_ms: 300,
+                                silence_duration_ms: 1200
                             },
                             transcription: {
                                 model: 'gpt-4o-mini-transcribe'
@@ -508,7 +511,7 @@ const twilio: FastifyPluginAsync = async (fastify: FastifyInstance) => {
                     instructions: SYSTEM_MESSAGE.replace('{{name}}', String(firstName)),
                     // modalities: ["text", "audio"],
                     output_modalities: ['audio'],
-                    temperature: 0.8,
+                    // temperature: 0.8,
                 }
             };
 
