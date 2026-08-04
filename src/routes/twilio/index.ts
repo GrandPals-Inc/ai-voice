@@ -427,7 +427,7 @@ const SYSTEM_MESSAGE = PROMPT_VERSION && promptVersions[PROMPT_VERSION] || promp
 
 const VOICE = 'alloy';
 
-const baseURL = process.env.NODE_ENV === 'development' ? 'https://cow-frank-freely.ngrok.app' : 'https://grandpals.app'
+const baseURL = process.env.NODE_ENV === 'development' ? 'https://cow-frank-freely.ngrok.io' : 'https://grandpals.app'
 
 // Show AI response elapsed timing calculations
 const SHOW_TIMING_MATH = false;
@@ -464,10 +464,10 @@ const twilio: FastifyPluginAsync = async (fastify: FastifyInstance) => {
         let markQueue: string[] = [];
         let responseStartTimestampTwilio: null | number = null;
         const transcription: any[] = []
-        const openAiWs = new WebSocket('wss://api.openai.com/v1/realtime?model=gpt-4o-realtime-preview-2024-12-17', {
+        const openAiWs = new WebSocket('wss://api.openai.com/v1/realtime?model=gpt-realtime-mini', {
             headers: {
                 Authorization: `Bearer ${OPENAI_API_KEY}`,
-                "OpenAI-Beta": "realtime=v1"
+                // "OpenAI-Beta": "realtime=v1"
             }
         });
 
